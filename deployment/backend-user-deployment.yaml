@@ -72,4 +72,5 @@ spec:
             valueFrom: 
               configMapKeyRef:
                 name: env-configmap
-                key: URL 
+                key: URL
+      restartPolicy: Always
