@@ -5,7 +5,7 @@ metadata:
   labels: 
     app: frontend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
@@ -15,17 +15,18 @@ spec:
         app: frontend
     spec:
       containers:
-        - name: frontend
-          image: eferoghenej/udagram-frontend:v1      
+        - image: eferoghenej/udagram-frontend:v2
+          name: frontend
+          imagePullPolicy: Always     
           ports:
             - containerPort: 80
           resources:
             requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "1024Mi"
-              cpu: "500m"       
+              memory: "1000Mi"
+            cpu: "250m"
+          limits:
+            memory: "2000Mi"
+            cpu: "500m"     
           env:
             - name: JWT_SECRET
               valueFrom:

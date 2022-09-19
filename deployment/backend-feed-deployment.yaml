@@ -16,14 +16,14 @@ spec:
     spec:
       containers:
       - name: backend-feed
-        image: eferoghenej/udagram-api-feed:v1
+        image: eferoghenej/udagram-api-feed:v2
         imagePullPolicy: Always
         resources:
           requests:
-            memory: "64Mi"
+            memory: "1000Mi"
             cpu: "250m"
           limits:
-            memory: "1024Mi"
+            memory: "2000Mi"
             cpu: "500m"
         ports: 
           - containerPort: 8080
@@ -73,4 +73,12 @@ spec:
               configMapKeyRef:
                 name: env-configmap
                 key: URL
-      restartPolicy: Always    
+        volumeMounts:
+        - name: aws-secret
+          mountPath: "/root/.aws/"
+          readOnly: true      
+      restartPolicy: Always
+      volumes:
+      - name: aws-secret
+        secret:
+          secretName: aws-secret    

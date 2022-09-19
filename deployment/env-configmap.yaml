@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata: 
   name: env-configmap
 data:
-  POSTGRES_HOST: udagram-micro-db.ctmbbcbp5jnj.us-east-1.rds.amazonaws.com
+  POSTGRES_HOST: udagram-micro-db.cjotdby46849.us-east-1.rds.amazonaws.com
   POSTGRES_DB: postgres
-  AWS_BUCKET: udagram-micro-bucket
+  AWS_BUCKET: eks-k8s-bucket
   AWS_REGION: us-east-1
   AWS_PROFILE: default
   JWT_SECRET: testing

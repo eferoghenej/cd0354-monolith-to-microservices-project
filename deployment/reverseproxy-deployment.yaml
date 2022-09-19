@@ -5,7 +5,7 @@ metadata:
     service: reverseproxy
   name: reverseproxy
 spec:
-  replicas: 2
+  replicas: 1
   selector:    
     matchLabels:      
       service: reverseproxy
@@ -15,7 +15,7 @@ spec:
         service: reverseproxy
     spec:
       containers:
-      - image: eferoghenej/reverseproxy:v1
+      - image: eferoghenej/reverseproxy:v2
         name: reverseproxy
         imagePullPolicy: Always          
         resources:
@@ -23,8 +23,8 @@ spec:
             memory: "64Mi"
             cpu: "250m"
           limits:
-            memory: "1024Mi"
-            cpu: "500m"       
+            memory: "1024i"
+            cpu: "500m"     
         ports:
         - containerPort: 8080
       restartPolicy: Always
