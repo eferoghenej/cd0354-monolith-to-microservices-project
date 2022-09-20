@@ -15,70 +15,45 @@ spec:
         app: backend-user
     spec:
       containers:
-      - name: backend-user
-        image: eferoghenej/udagram-api-user:v1
-        imagePullPolicy: Always
+      - image: eferoghenej/udagram-api-user:v1
+        name: backend-user 
+        imagePullPolicy: Always  
         resources:
           requests:
-            memory: "1000Mi"
-            cpu: "250m"
+            memory: "2048Mi"
+            cpu: "600m"
           limits:
-            memory: "2000Mi"
-            cpu: "500m"
-        ports: 
-          - containerPort: 8080
+            memory: "2048Mi"
+            cpu: "600m"      
         env:
-          - name: POSTGRES_HOST
-            valueFrom: 
-              configMapKeyRef:
-                name: env-configmap
-                key: POSTGRES_HOST
-          - name: POSTGRES_DB
-            valueFrom: 
-              configMapKeyRef:
-                name: env-configmap
-                key: POSTGRES_DB
-          - name: POSTGRES_USERNAME
-            valueFrom: 
-              secretKeyRef:
-                name: env-secret
-                key: POSTGRES_USERNAME
-          - name: POSTGRES_PASSWORD
-            valueFrom: 
-              secretKeyRef:
-                name: env-secret
-                key: POSTGRES_PASSWORD
-          - name: AWS_BUCKET
-            valueFrom: 
-              configMapKeyRef:
-                name: env-configmap
-                key: AWS_BUCKET
-          - name: AWS_REGION
-            valueFrom: 
-              configMapKeyRef:
-                name: env-configmap
-                key: AWS_REGION
-          - name: AWS_PROFILE
-            valueFrom: 
-              configMapKeyRef:
-                name: env-configmap
-                key: AWS_PROFILE
-          - name: JWT_SECRET
-            valueFrom: 
-              configMapKeyRef:
-                name: env-configmap
-                key: JWT_SECRET
-          - name: URL
-            valueFrom: 
-              configMapKeyRef:
-                name: env-configmap
-                key: URL
-        volumeMounts:
-        - name: aws-secret
-          mountPath: "/root/.aws/"
-          readOnly: true      
+        - name: URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: URL 
+        - name: JWT_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: JWT_SECRET
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: POSTGRES_DB
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: POSTGRES_HOST
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: env-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: env-secret
+              key: POSTGRES_USERNAME
       restartPolicy: Always
-      volumes:
-      - name: aws-secret
-        secret:
-          secretName: aws-secret

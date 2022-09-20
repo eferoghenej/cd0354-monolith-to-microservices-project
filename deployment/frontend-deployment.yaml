@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
-  labels: 
+  labels:
     app: frontend
+  name: frontend
 spec:
   replicas: 1
   selector:
@@ -13,28 +13,19 @@ spec:
     metadata:
       labels:
         app: frontend
+        api: external        
     spec:
       containers:
-        - image: eferoghenej/udagram-frontend:v1
-          name: frontend
-          imagePullPolicy: Always     
-          ports:
-            - containerPort: 80
-          resources:
-            requests:
-              memory: "1000Mi"
-              cpu: "250m"
-            limits:
-              memory: "2000Mi"
-              cpu: "500m"     
-          env:
-            - name: JWT_SECRET
-              valueFrom:
-                configMapKeyRef:
-                  name: env-configmap
-                  key: JWT_SECRET
-      volumes:
-      - name: env-configmap
-        configMap:
-          name: env-configmap
+      - image: eferoghenej/udagram-frontend:v2
+        name: frontend
+        imagePullPolicy: Always          
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "2048Mi"
+            cpu: "600m"
+          limits:
+            memory: "2048Mi"
+            cpu: "600m"                
       restartPolicy: Always
